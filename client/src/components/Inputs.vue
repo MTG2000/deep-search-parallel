@@ -27,8 +27,8 @@ import PlayBtnIcon from "./Icons/PlayBtnIcon";
 export default {
   components: { StopBtnIcon, PlayBtnIcon },
   data: () => ({
-    path: "E:\\University Subjects\\projects\\MPI\\first-test\\files",
-    search: "moon"
+    path: "",
+    search: ""
   }),
   computed: {
     ...mapState(["queryId", "isRunning"])

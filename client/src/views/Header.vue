@@ -1,6 +1,6 @@
 <template>
   <header id="header" class="header">
-    <h1>Searching Deep</h1>
+    <h1>Deep Search</h1>
   </header>
 </template>
 
