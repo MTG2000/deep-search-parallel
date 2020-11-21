@@ -29,12 +29,3 @@ $ node index
 or you can simply use the start.bat file after downloading the dependencies.
 
 The App now is up and running on "localhost:5000" and you can open it with any browser.
-
-### Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantaneously see your updates!
-
-Open your favorite Terminal and run these commands.
