@@ -4,6 +4,7 @@ var cors = require("cors");
 const express = require("express");
 var app = express();
 var http = require("http").createServer(app);
+
 var io = require("socket.io")(http, {
   cors: {
     origin: "*",
@@ -101,6 +102,6 @@ cluster.on("exit", function (deadWorker, code, signal) {
 
 module.exports = function () {
   http.listen(5000, () => {
-    console.log("listening on *:5000");
+    console.log("App up and running on http://localhost:5000");
   });
 };

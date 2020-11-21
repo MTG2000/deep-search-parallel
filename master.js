@@ -1,4 +1,3 @@
-const { getFiles } = require("./utils.js");
 const server = require("./server.js");
 var cluster = require("cluster");
 
