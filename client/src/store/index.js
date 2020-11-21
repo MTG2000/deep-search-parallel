@@ -59,11 +59,10 @@ export const mutations = {
   SOCKET_finishedQuery: function(state) {
     state.isRunning = false;
     state.isFinished = true;
-    state.files = state.files.map((f) => ({
-      ...f,
-      processing: false,
-      finished: true,
-    }));
+    state.files = state.files.map((f) => {
+      if (f.processing) return { ...f, finished: true, processing: false };
+      return f;
+    });
   },
 };
 

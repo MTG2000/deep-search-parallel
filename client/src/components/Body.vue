@@ -3,7 +3,7 @@
     <ProcessingSection
       :files="processingFiles"
       :isDone="isFinished"
-      :numOfScannedFiles="files.length"
+      :numOfScannedFiles="files.filter(f=>f.finished).length"
     />
     <div class="mb-5"></div>
     <ResultSection :files="positiveFiles" :isDone="isFinished" />

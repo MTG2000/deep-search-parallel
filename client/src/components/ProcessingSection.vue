@@ -54,6 +54,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 
   color: #a3a3a3;
   h2 {

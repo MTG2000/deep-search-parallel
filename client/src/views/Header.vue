@@ -1,11 +1,15 @@
 <template>
   <header id="header" class="header">
-    <h1>Deep Search</h1>
+    <h1>
+      <SearchArchiveIcon />Deep Search
+    </h1>
   </header>
 </template>
 
 <script>
+import SearchArchiveIcon from "../components/Icons/SearchArchiveIcon";
 export default {
+  components: { SearchArchiveIcon },
   name: "Header"
 };
 </script>
