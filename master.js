@@ -1,7 +1,7 @@
 const server = require("./server.js");
 var cluster = require("cluster");
 
-var numWorkers = require("os").cpus().length / 4;
+var numWorkers = require("os").cpus().length;
 
 console.log("Master cluster setting up " + numWorkers + " workers...");
 
