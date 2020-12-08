@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
 
     //Needs changing
     const availableClusters = Object.values(cluster.workers);
-    console.log(availableClusters.length);
+
     for (
       let i = 0;
       i < Math.min(queries[queryId].files.length, availableClusters.length);
@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
   socket.on("stopQuery", async (queryId) => {
     // kill the other workers.
     for (var id in cluster.workers) {
-      console.log("Killed worker");
+      // console.log("Killed worker");
       // I used process.kill to immediatly terminate the worker (non-graceful termination)
       cluster.workers[id].process.kill();
     }
@@ -66,9 +66,9 @@ io.on("connection", (socket) => {
     delete queries[queryId];
   });
 
-  cluster.on("online", (worker) => {
-    console.log(`Worker ${worker.process.pid} is Online`);
-  });
+  // cluster.on("online", (worker) => {
+  //   console.log(`Worker ${worker.process.pid} is Online`);
+  // });
 
   cluster.on("message", (worker, message) => {
     const { queryId, file, result } = message;

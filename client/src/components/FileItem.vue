@@ -39,6 +39,7 @@ export default {
   border-radius: 10px;
   max-width: 300px;
   text-align: left;
+  overflow: hidden;
 }
 
 .spinner {

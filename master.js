@@ -1,7 +1,7 @@
 const server = require("./server.js");
 var cluster = require("cluster");
 
-var numWorkers = require("os").cpus().length;
+var numWorkers = require("os").cpus().length / 4;
 
 console.log("Master cluster setting up " + numWorkers + " workers...");
 
@@ -14,12 +14,12 @@ cluster.on("exit", function (deadWorker, code, signal) {
   var worker = cluster.fork();
 
   // Note the process IDs
-  var newPID = worker.process.pid;
-  var oldPID = deadWorker.process.pid;
+  // var newPID = worker.process.pid;
+  // var oldPID = deadWorker.process.pid;
 
   // Log the event
-  console.log("worker " + oldPID + " died.");
-  console.log("worker " + newPID + " born.");
+  // console.log("worker " + oldPID + " died.");
+  // console.log("worker " + newPID + " born.");
 });
 module.exports = function () {
   server();
