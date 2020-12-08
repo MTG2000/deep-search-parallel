@@ -2,6 +2,7 @@ const cluster = require("cluster");
 const { getFiles } = require("./utils");
 var cors = require("cors");
 const express = require("express");
+const worker = require("./worker");
 var app = express();
 var http = require("http").createServer(app);
 
@@ -21,6 +22,7 @@ const queries = {};
 
 io.on("connection", (socket) => {
   socket.on("newQuery", async (query) => {
+    console.log(new Date());
     const { path, search } = query;
 
     // Get All the files at the specefied directory
@@ -40,7 +42,7 @@ io.on("connection", (socket) => {
 
     //Needs changing
     const availableClusters = Object.values(cluster.workers);
-
+    console.log(availableClusters.length);
     for (
       let i = 0;
       i < Math.min(queries[queryId].files.length, availableClusters.length);
@@ -54,16 +56,22 @@ io.on("connection", (socket) => {
   });
 
   socket.on("stopQuery", async (queryId) => {
-    for (const worker of Object.values(cluster.workers)) {
-      worker.destroy();
+    // kill the other workers.
+    for (var id in cluster.workers) {
+      console.log("Killed worker");
+      // I used process.kill to immediatly terminate the worker (non-graceful termination)
+      cluster.workers[id].process.kill();
     }
     socket.emit("finishedQuery", { queryId });
     delete queries[queryId];
   });
 
+  cluster.on("online", (worker) => {
+    console.log(`Worker ${worker.process.pid} is Online`);
+  });
+
   cluster.on("message", (worker, message) => {
     const { queryId, file, result } = message;
-
     socket.emit("searchResult", { file, queryId, result });
     if (!queries[queryId]) return;
 
@@ -86,18 +94,10 @@ io.on("connection", (socket) => {
       worker.send({ queryId, file: newFile, search: queries[queryId].search });
     } else if (Object.keys(queries[queryId].filesBeingProcessed).length === 0) {
       delete queries[queryId];
+      console.log(new Date());
       socket.emit("finishedQuery", { queryId });
     }
   });
-});
-
-cluster.on("exit", function (deadWorker, code, signal) {
-  // Restart the worker
-  var worker = cluster.fork();
-
-  // Note the process IDs
-  var newPID = worker.process.pid;
-  var oldPID = deadWorker.process.pid;
 });
 
 module.exports = function () {

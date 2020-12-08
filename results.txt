@@ -1,0 +1,3 @@
+4 cores: 9sec
+2 cores: 8sec
+1 core: 11sec
